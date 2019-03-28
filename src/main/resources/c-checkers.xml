@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkers>
+    <check
+            class="fr.cnes.icode.c.checkers.NoToDo"
+            id="fr.cnes.icode.c.checkers.NoToDo"
+            name="No TODO in comment"
+            languageId="fr.cnes.icode.c">
+    </check>
+    <check
+            class="fr.cnes.icode.c.checkers.NoFloat"
+            id="fr.cnes.icode.c.checkers.NoFloat"
+            name="No floating number should be used"
+            languageId="fr.cnes.icode.c">
+    </check>
+</checkers>
