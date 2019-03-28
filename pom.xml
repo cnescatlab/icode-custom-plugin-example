@@ -25,7 +25,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <icode.version>dev-SNAPSHOT</icode.version>
+        <icode.version>3.2.0-dev-RC2</icode.version>
         <jflex.version>1.7.0</jflex.version>
         <junit.version>4.11</junit.version>
     </properties>
