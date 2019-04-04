@@ -36,23 +36,17 @@ import fr.cnes.icode.exception.JFlexException;
 %type List<CheckResult>
 
 
-%state SINGLELINE_COMMENT, MULTILINE_COMMENT, PRIMITIVE, CODE, STRING_SIMPLE, STRING_DOUBLE
+%state SINGLELINE_COMMENT, MULTILINE_COMMENT, STRING_DOUBLE
 
 COMMENT_WORD    = [\/][\/]
 COMMENT_START   = [\/][\*]
 COMMENT_END     = [\*][\/]
 NEWLINE			= \r | \n | \r\n
-SPACE			= {NEWLINE} | [\ \t\f]
 
 TODO            = "todo" | "TODO" | "ToDo" | "Todo"
 
-FUNCT			= {FNAME}{SPACE}*[\(]{SPACE}*[\)]
-IDENTIFIANT     = [:jletter:] [:jletterdigit:]*
-
 STRING_D		= \"
 IGNORE_STRING_D = [\\][\"]
-STRING_S	 	= \'
-IGNORE_STRING_S = [\\][\']
 
 																
 %{
@@ -60,13 +54,8 @@ IGNORE_STRING_S = [\\][\']
     private static final String GLOBAL = "GLOBAL";
 	
 	String location = GLOBAL;
-	/* functionLine: the beginning line of the function */
-	int functionLine = 0;
 
     private String parsedFileName;
-	String errorTodo = "";
-
-	private Stack<String> functionStack = new Stack<>();
 
     public NoToDo() { }
 	
@@ -76,23 +65,6 @@ IGNORE_STRING_S = [\\][\']
         this.parsedFileName = file.toString();
         this.zzReader = new FileReader(new File(file.getAbsolutePath()));
 	}
-	
-	private void endLocation() throws JFlexException {
-		try {
-		    String functionFinished = functionStack.pop();
-			if (!functionStack.empty()) {
-				/* there is a current function: change location to this function */
-				location = functionStack.peek();
-			} else {
-				/* we are in the main program: change location to main */
-				location = GLOBAL;
-			}
-		} catch (final EmptyStackException e) {
-        	final String errorMessage = e.getMessage();
-            throw new JFlexException(this.getClass().getName(), parsedFileName,
-            errorMessage, yytext(), yyline, yycolumn);
-		}
-	}	
 %}
 
 %eofval{
@@ -113,18 +85,16 @@ IGNORE_STRING_S = [\\][\']
 /************************/
 <SINGLELINE_COMMENT>
 		{
-				{NEWLINE}      	{yybegin(YYINITIAL);}
-				{TODO}          {errorTodo = yytext(); setError(location,"The keyword " + errorTodo + " is not allowed.", yyline+1);}
-		  	 	[^]|{SPACE}  	{}
-			   	.              	{}
+				{NEWLINE}      	    {yybegin(YYINITIAL);}
+				{TODO}              {setError(location,"The keyword " + yytext() + " is not allowed.", yyline+1);}
+		  	 	[^]            	    {}
 		}
 
 <MULTILINE_COMMENT>
 		{
-				{COMMENT_END}   {yybegin(YYINITIAL);}
-				{TODO}          {errorTodo = yytext(); setError(location,"The keyword " + errorTodo + " is not allowed.", yyline+1);}
-		  	 	[^]|{SPACE}  	{}
-			   	.              	{}
+				{COMMENT_END}       {yybegin(YYINITIAL);}
+				{TODO}              {setError(location,"The keyword " + yytext() + " is not allowed.", yyline+1);}
+		  	 	[^]            	    {}
 		}
 
 /************************/
@@ -132,24 +102,10 @@ IGNORE_STRING_S = [\\][\']
 /************************/
 <YYINITIAL>
 		{
-			  	{COMMENT_WORD} 	{yybegin(SINGLELINE_COMMENT);}
-			  	{COMMENT_START} {yybegin(MULTILINE_COMMENT);}
-				{STRING_D}		{yybegin(STRING_DOUBLE);}
-				{STRING_S}		{yybegin(STRING_SIMPLE);}
-			 	[^]            	{}
-		}
-
-/*
- * The string states are designed to avoid problems due to patterns found in strings.
- */ 
-/************************/
-/* STRING_SIMPLE STATE	*/
-/************************/
-<STRING_SIMPLE>   	
-		{
-				{IGNORE_STRING_S}	{}
-				{STRING_S}    		{yybegin(YYINITIAL);}  
-		  	 	[^]|{SPACE}  		{}
+			  	{COMMENT_WORD} 	    {yybegin(SINGLELINE_COMMENT);}
+			  	{COMMENT_START}     {yybegin(MULTILINE_COMMENT);}
+				{STRING_D}		    {yybegin(STRING_DOUBLE);}
+			 	[^]            	    {}
 		}
 
 /************************/
@@ -159,7 +115,7 @@ IGNORE_STRING_S = [\\][\']
 		{
 				{IGNORE_STRING_D}	{}
 				{STRING_D}    		{yybegin(YYINITIAL);}  
-		  	 	[^]|{SPACE}  		{}
+		  	 	[^]                 {}
 		}		
 
 /************************/
