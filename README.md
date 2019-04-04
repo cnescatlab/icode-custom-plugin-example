@@ -6,6 +6,7 @@ This repository contains an example of how to develop a plugin to extend i-Code 
 * [Compiling the example](#compiling-the-example)
 * [Install your custom plugin](#install-your-custom-plugin)
 * [Available extension points](#available-extension-points)
+* [Developer guide](#developer-guide)
 * [Merging your custom plugin to official i-Code core feature](#merging-your-custom-plugin-to-official-i-code-core-feature)
 
 ### Quick start
@@ -40,6 +41,9 @@ icode -c
 - `ILanguage`: This interface must be implemented to add a new supported language. The language of each file is determined through the file extension.
 - `AbstractChecker`: This abstract class must be overridden to define new checkers to run on files with the correct extension.
 - `CheckersDefinition`: This abstract class must be overridden to include new checkers and their metadata in your custom plugin.
+
+### Developer guide
+We provide a guide for developers who wonder how to implement their own checker easily: just follow [this link to our wiki](../../wiki/Developer-guide).
 
 ### Merging your custom plugin to official i-Code core feature
 You have developed a new relevant checker and you want it to be integrated in i-Code core feature? So you are at the good place!
