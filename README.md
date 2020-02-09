@@ -10,7 +10,7 @@ This repository contains an example of how to develop a plugin to extend i-Code 
 * [Merging your custom plugin to official i-Code core feature](#merging-your-custom-plugin-to-official-i-code-core-feature)
 
 ### Quick start
-If you are interested in developping a new plugin for i-Code analyzer, just download this example project.
+If you are interested in developing a new plugin for i-Code analyzer, just download this example project.
 ```
 git clone https://github.com/lequal/icode-custom-plugin-example
 ``` 

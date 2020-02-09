@@ -5,7 +5,7 @@
 /************************************************************************************************/
 package fr.cnes.icode.c.checkers;
 
-import fr.cnes.icode.datas.CheckersDefinition;
+import fr.cnes.icode.data.CheckersDefinition;
 
 /**
  * Define checkers to be supported by this plugin.

@@ -25,9 +25,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <icode.version>3.2.0-dev-RC2</icode.version>
+        <icode.version>dev-4.0.0-SNAPSHOT</icode.version>
         <jflex.version>1.7.0</jflex.version>
-        <junit.version>4.11</junit.version>
+        <maven.surfire.version>2.22.2</maven.surfire.version>
+        <junit.jupiter.version>5.6.0</junit.jupiter.version>
     </properties>
 
     <repositories>
@@ -39,15 +40,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.Facthunder.i-CodeCNES</groupId>
+            <groupId>com.github.lequal.i-CodeCNES</groupId>
             <artifactId>icode-library</artifactId>
             <version>${icode.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -55,6 +56,10 @@
     <!-- generate the lex code -->
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surfire.version}</version>
+            </plugin>
             <plugin>
                 <groupId>de.jflex</groupId>
                 <artifactId>jflex-maven-plugin</artifactId>

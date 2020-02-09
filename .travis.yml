@@ -1,16 +1,20 @@
 language: java
-sudo: false
 install: true
+
+os:
+  - linux
+
+jdk:
+  - oraclejdk11
 
 addons:
   sonarcloud:
-    organization: "lequal"
-
-jdk:
-- oraclejdk8
+    token:
+      secure: "hmaHB4Y2cM9zREAhfjqRuGsYkc6rZYqcK66xslYF0Tbrqn/rEFQZrfqMkDa/s2Xm4VWWSjtup20o6Ad9awq8YgxX4NNkgNRvAXTpNbKSYVkS6xtqi4SEjHYaETKmXfn6VQHCcMXqOYtX7HuxS/X5rkViHpIloy5VhnJKSVh66lnf38EJo78J7Z9dFxTcun5O1e46+Pk0/AatjUcEX9HJMtaI+VfTEv4A2UgjZAbNxfPuMWIjZlp0sSdXYOouiOJWojnpA5u9sDFIpkprIFLx0AbSoWsMxHHeK1eKU8Z4NFLCqJyQylxpy9IdmHyl9Ar22h5E+ki2/+U5O9mB/cTSWHyWDUesAmdPoqA2lgcJV1Jc1yjU1iWnqApocY9JSVUEOB5do5UdqihEAFmQYiqlsp0TZV/cgvVamPEZnKBO4C2WlrPmDh1/tBKPEvWbiZLIb8NKTT1gG4ei2YyHP9XuJeF+etX6FcMc0wjg/jE0F3rrQaQLxrNkvWTAyMeUqLqtW/0Tw7/+9gWAM8nle+wTxqmQhe1w7DCRcPI2kBLjv6QaYvTLOgcC5eeHFOlpXHBfIk00nvin3RwSoIZ/byB7hdchZn0BZdvN+bKmPMdyAX0HHLirgFtkDFNNKsnFJlKpoqX8B2kAEFcxWPfyN12KX/0nXtVzC1JjWExNS+8fOu4="
 
 script:
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 
 cache:
   directories:
@@ -29,4 +33,4 @@ deploy:
   name: "i-Code C plugin"
   draft: true
   on:
-    branch: master
+    tags: true
