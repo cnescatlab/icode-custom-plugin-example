@@ -6,7 +6,7 @@
 
     <groupId>fr.cnes.icode</groupId>
     <artifactId>icode-c-plugin</artifactId>
-    <version>1.0.0-dev</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>i-Code C plugin</name>
@@ -25,7 +25,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <icode.version>dev-4.0.0-SNAPSHOT</icode.version>
+        <icode.version>v4.0.0</icode.version>
         <jflex.version>1.7.0</jflex.version>
         <maven.surfire.version>2.22.2</maven.surfire.version>
         <junit.jupiter.version>5.6.0</junit.jupiter.version>
